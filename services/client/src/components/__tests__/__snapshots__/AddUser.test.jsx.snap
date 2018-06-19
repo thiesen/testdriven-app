@@ -1,23 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<AddUser /> snapshot 1`] = `
-<form>
+<form
+  onSubmit={[Function]}
+>
   <div
     className="form-group"
   >
     <input
       className="form-control input-lg"
       name="username"
+      onChange={undefined}
       placeholder="Enter an username"
       required={true}
       type="text"
+      value={undefined}
     />
     <input
       className="form-control input-lg"
       name="email"
+      onChange={undefined}
       placeholder="Enter an email address"
       required={true}
       type="email"
+      value={undefined}
     />
   </div>
   <input
