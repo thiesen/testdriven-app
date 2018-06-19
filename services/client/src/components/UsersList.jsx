@@ -1,7 +1,6 @@
 import React from 'react';
 
-const UsersList = props => {
-  return (
+const UsersList = props => (
     <div>
       {
         props.users.map(user => (
@@ -13,7 +12,6 @@ const UsersList = props => {
         ))
       }
     </div>
-  );
-};
+);
 
 export default UsersList;

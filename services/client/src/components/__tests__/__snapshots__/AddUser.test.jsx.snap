@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddUser /> snapshot 1`] = `
+<form>
+  <div
+    className="form-group"
+  >
+    <input
+      className="form-control input-lg"
+      name="username"
+      placeholder="Enter an username"
+      required={true}
+      type="text"
+    />
+    <input
+      className="form-control input-lg"
+      name="email"
+      placeholder="Enter an email address"
+      required={true}
+      type="email"
+    />
+  </div>
+  <input
+    className="btn btn-primary btn-lg btn-block"
+    type="submit"
+    value="Submit"
+  />
+</form>
+`;
