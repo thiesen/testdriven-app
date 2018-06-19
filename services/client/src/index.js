@@ -1,8 +1,45 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import axios from 'axios';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+import UsersList from './components/UsersList';
+
+class App extends Component {
+  state = {
+    users: [],
+  }
+
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    this.getUsers();
+  }
+  getUsers = () => {
+    axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`)
+      .then(res => this.setState({ users: res.data.data.users }))
+      .catch(err => console.log(err));
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-md-4">
+            <br/>
+            <h1>All Users</h1>
+            <hr/>
+            <br/>
+            <UsersList users={this.state.users}/>
+          </div>
+        </div>
+      </div>
+    );
+  }
+};
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
