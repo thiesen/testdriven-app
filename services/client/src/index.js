@@ -9,10 +9,6 @@ class App extends Component {
     users: [],
   }
 
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.getUsers();
   }

@@ -7,7 +7,7 @@ const UsersList = props => {
         props.users.map(user => (
           <h4
             key={user.id}
-            className="card card-body bg-light"
+            className="well"
             >{user.username}
           </h4>
         ))
