@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import About from './components/About';
 import AddUser from './components/AddUser';
+import Form from './components/Form';
 import NavBar from './components/NavBar';
 import UsersList from './components/UsersList';
 
@@ -12,7 +13,12 @@ class App extends Component {
     users: [],
     username: '',
     email: '',
-    title: 'TestDriven.io'
+    title: 'TestDriven.io',
+    formData: {
+      username: '',
+      email: '',
+      passowrd: ''
+    }
   };
 
   componentDidMount() {
@@ -58,21 +64,33 @@ class App extends Component {
             <div className="col-md-6">
               <br/>
               <Switch>
-                <Route exact path='/' render={() => (
-                  <div>
-                    <h1>All Users</h1>
-                    <hr/>
-                    <br/>
-                    <AddUser
-                      username={this.state.username}
-                      email={this.state.email}
-                      addUser={this.addUser}
-                      handleChange={this.handleChange}
-                      />
-                    <br/>
-                    <UsersList users={this.state.users}/>
-                  </div>
+                <Route exact path='/register' render={() => (
+                  <Form
+                    formType={'Register'}
+                    formData={this.state.formData}
+                    />
                 )} />
+        <Route exact path='/login' render={() => (
+          <Form
+            formType={'Login'}
+            formData={this.state.formData}
+            />
+        )} />
+        <Route exact path='/' render={() => (
+          <div>
+            <h1>All Users</h1>
+            <hr/>
+            <br/>
+            <AddUser
+              username={this.state.username}
+              email={this.state.email}
+              addUser={this.addUser}
+              handleChange={this.handleChange}
+              />
+            <br/>
+            <UsersList users={this.state.users}/>
+          </div>
+        )} />
         <Route exact path='/about' component={About}/>
         </Switch>
         </div>
