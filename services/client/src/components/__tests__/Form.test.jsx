@@ -4,52 +4,46 @@ import renderer from 'react-test-renderer';
 
 import Form from '../Form';
 
-const formData = {
-  username: '',
-  email: '',
-  password: ''
-};
+const testData = [
+  {
+    formType: 'Register',
+    formData: {
+      username: '',
+      email: '',
+      password: ''
+    }
+  },
+  {
+    formType: 'Login',
+    formData: {
+      email: '',
+      password: ''
+    }
+  }
+];
 
 describe('<Form/>', () => {
-  it('renders registration form properly', () => {
-    const component = <Form formType={'Register'} formData={formData}/>;
-    const wrapper = shallow(component);
+  testData.forEach((el) => {
+    it(`renders ${el.formType} form properly`, () => {
+      const component = <Form formType={el.formType} formData={el.formData}/>;
+      const wrapper = shallow(component);
 
-    const h1 = wrapper.find('h1');
-    expect(h1.length).toBe(1);
-    expect(h1.get(0).props.children).toEqual('Register');
+      const h1 = wrapper.find('h1');
+      expect(h1.length).toBe(1);
+      expect(h1.get(0).props.children).toEqual(el.formType);
 
-    const formGroup = wrapper.find('.form-group');
-    expect(formGroup.length).toBe(3);
-    expect(formGroup.get(0).props.children.props.name).toEqual('username');
-    expect(formGroup.get(0).props.children.props.value).toBe('');
+      const formGroup = wrapper.find('.form-group');
+      expect(formGroup.length).toBe(Object.keys(el.formData).length);
+      expect(formGroup.get(0).props.children.props.name).toEqual(Object.keys(el.formData)[0]);
+      expect(formGroup.get(0).props.children.props.value).toBe('');
+    });
+
+    test(`${el.formType} form snapshot`, () => {
+      const component = <Form formType={el.formType} formData={el.formData} />;
+      const tree = renderer.create(component).toJSON();
+
+      expect(tree).toMatchSnapshot();
+    });
   });
 
-  it('renders login form properly', () => {
-    const component = <Form formType={'Login'} formData={formData}/>;
-    const wrapper = shallow(component);
-
-    const h1 = wrapper.find('h1');
-    expect(h1.length).toBe(1);
-    expect(h1.get(0).props.children).toEqual('Login');
-
-    const formGroup = wrapper.find('.form-group');
-    expect(formGroup.length).toBe(2);
-    expect(formGroup.get(0).props.children.props.name).toEqual('email');
-    expect(formGroup.get(0).props.children.props.value).toEqual('');
-  });
-
-  test('Login form snapshot', () => {
-    const component = <Form formType={'Login'} formData={formData} />;
-    const tree = renderer.create(component).toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
-  test('Register form snapshot', () => {
-    const component = <Form formType={'Register'} formData={formData} />;
-    const tree = renderer.create(component).toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
 });
