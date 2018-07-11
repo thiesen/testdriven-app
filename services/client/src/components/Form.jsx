@@ -1,6 +1,10 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 const Form = (props) => {
+  if (props.isAuthenticated) {
+    return <Redirect to="/" />;
+  }
   return(
     <div>
       <h1>{props.formType}</h1>
@@ -43,7 +47,7 @@ const Form = (props) => {
               />
           </div>
           <input
-            type="sumit"
+            type="submit"
             className="btn btn-primary btn-lg btn-block"
             value="Submit"
             />
