@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import About from './components/About';
 import AddUser from './components/AddUser';
 import Form from './components/Form';
+import Logout from './components/Logout';
 import NavBar from './components/NavBar';
 import UsersList from './components/UsersList';
 
@@ -93,6 +94,12 @@ class App extends Component {
     this.setState(formObj);
   };
 
+  logoutUser = () => {
+    window.localStorage.clear();
+
+    this.setState({ isAuthenticated: false });
+  };
+
   render() {
     return (
       <div>
@@ -120,6 +127,12 @@ class App extends Component {
             isAuthenticated={this.state.isAuthenticated}
             />
         )} />
+        <Route exact path='/logout' render={() => (
+          <Logout
+            logoutUser={this.logoutUser}
+            isAuthenticated={this.state.isAuthenticated}
+            />
+        )}/>
         <Route exact path='/' render={() => (
           <div>
             <h1>All Users</h1>
